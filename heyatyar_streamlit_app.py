@@ -11,7 +11,7 @@ from litellm import completion, RateLimitError # Import RateLimitError
 load_dotenv()
 
 # --- Simple Password Protection ---
-PASSWORD = 82508250  # Change this to your desired password
+PASSWORD = '82508250'  # Change this to your desired password
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
@@ -366,4 +366,5 @@ if conn:
         conn.close()
 else:
     st.error("Could not connect to the database. Please ensure 'company.db' exists.")
+
 
