@@ -10,7 +10,22 @@ from litellm import completion, RateLimitError # Import RateLimitError
 # Load environment variables from a .env file (if it exists).
 load_dotenv()
 
+# --- Simple Password Protection ---
+PASSWORD = 82508250  # Change this to your desired password
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
 
+if not st.session_state["authenticated"]:
+    st.title("Login")
+    password_input = st.text_input("Enter password:", type="password")
+    if st.button("Submit"):
+        if password_input == PASSWORD:
+            st.session_state["authenticated"] = True
+            st.success("Access granted!")
+            st.experimental_rerun()
+        else:
+            st.error("Incorrect password. Try again.")
+    st.stop()
 # --- Database Functions ---
 
 def create_connection(db_file):
@@ -351,3 +366,4 @@ if conn:
         conn.close()
 else:
     st.error("Could not connect to the database. Please ensure 'company.db' exists.")
+
